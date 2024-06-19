@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
+<section layout:fragment="content" class="container mt-5">
 <div class="container mx-auto p-4">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-blue-700 text-xl font-bold">THÔNG TIN NHÂN VIÊN</h2>
@@ -29,18 +31,44 @@
         <tr th:each="NhanVien: ${NhanViens}" class="bg-white">
             <td th:text="${NhanVien.MaNV}" class="border border-zinc-300 p-2"></td>
             <td th:text="${NhanVien.TenNv}"class="border border-zinc-300 p-2"></td>
-            <td th:text="${NhanVien.Phai}" class="border border-zinc-300 p-2"><img src="https://placehold.co/20x20" alt="female" /></td>
+<!--            <td th:text="${NhanVien.Phai}" class="border border-zinc-300 p-2"><img src="https://placehold.co/20x20" alt="female" /></td>-->
+            <td>
+  <span th:if="${NhanVien.Phai == 'NU'}" class="border border-zinc-300 p-2">
+   <img th:src="@{'/images/images.png'}" alt="Gender Image" width="50" />
+  </span>
+                <span th:if="${NhanVien.Phai == 'NAM'}" class="border border-zinc-300 p-2">
+    <img th:src="@{'/images/image2.png'}" alt="Gender Image" width="50" />
+  </span>
+            </td>
             <td th:text="${NhanVien.NoiSinh}" class="border border-zinc-300 p-2"></td>
             <td th:text="${NhanVien.MaPhong.TenPhong}" class="border border-zinc-300 p-2"></td>
             <td th:text="${NhanVien.Luong}" class="border border-zinc-300 p-2"></td>
             <td>
 <!--                <a th:href="@{/NhanVien/edit/{id}(id=${NhanVien.MaNV})" class="btn btn-primary">Edit</a>-->
+                <div sec:authorize="hasAuthority('ADMIN')">
                 <a th:href="@{/NhanVien/edit/{id}(id=${NhanVien.MaNV})}" class="btn btn-danger btn-sm">Edit</a>
                 <a th:href="@{/NhanVien/delete/{id}(id=${NhanVien.MaNV})}" class="btn btn-danger btn-sm">delete</a>
+                </div>
             </td>
         </tr>
         </tbody>
     </table>
+    <div aria-label="Page navigation">
+        <ul class="pagination">
+            <li th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" th:href="@{/NhanVien(page=${currentPage - 1})}">Trước</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, NhanViens.totalPages - 1)}"
+                th:class="${i == currentPage} ? 'page-item active' : 'page-item'">
+                <a class="page-link" th:href="@{/NhanVien(page=${i})}" th:text="${i + 1}">1</a>
+            </li>
+            <li th:class="${currentPage + 1 == NhanViens.totalPages} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" th:href="@{/NhanVien(page=${currentPage + 1})}">Sau</a>
+            </li>
+        </ul>
+    </div>
 </div>
+
+</section>
 </body>
 </html>

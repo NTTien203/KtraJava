@@ -15,13 +15,13 @@ import org.hibernate.validator.constraints.Length;
 @Table(name = "NhanVien")
 public class NhanVien {
     @Id
-    @Length(min = 3,max=3)
+    @Length(min = 1,max=3)
     private String MaNV;
-    @Length(min = 7,max=100)
+    @Length(min = 1,max=100)
     private String TenNv;
-    @Length(min = 2,max=3)
+    @Length(min = 1,max=3)
     private String Phai;
-    @Length(min=10,max=200)
+    @Length(min=5,max=200)
     private String NoiSinh;
 
     @ManyToOne

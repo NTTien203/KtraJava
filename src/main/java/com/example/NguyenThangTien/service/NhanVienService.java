@@ -5,6 +5,9 @@ import com.example.NguyenThangTien.repository.NhanVienRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -18,6 +21,10 @@ public class NhanVienService {
 
     private final NhanVienRepository nhanVienRepository;
 
+    public Page<NhanVien> findPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return nhanVienRepository.findAll(pageable);
+    }
     public List<NhanVien> getAllNhanVien(){
         return nhanVienRepository.findAll();
     }

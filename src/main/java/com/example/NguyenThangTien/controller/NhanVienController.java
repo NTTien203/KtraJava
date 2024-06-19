@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 
 @Controller
 @RequestMapping("/NhanVien")
@@ -24,9 +22,10 @@ public class NhanVienController {
     private final PhongBanService phongBanService;
 
     @GetMapping
-    public String listNhanVien(Model model){
-        model.addAttribute("NhanViens",nhanVienService.getAllNhanVien());
-        model.addAttribute("phongBans",phongBanService.getAllPhongBan());
+    public String listNhanVien(@RequestParam(defaultValue = "0") int page, Model model){
+        Page<NhanVien> nhanVienPage = nhanVienService.findPaginated(page, 5);
+        model.addAttribute("NhanViens",nhanVienPage);
+        model.addAttribute("currentPage", page);
         return "NhanVien/ListNhanVien";
     }
 
