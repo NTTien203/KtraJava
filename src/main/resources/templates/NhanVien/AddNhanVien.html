@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Employee</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Edit Employee</h1>
+    <form th:action="@{/NhanVien/add}" th:object="${NhanVien}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="MaNV" class="form-label">MaNV</label>
+            <input type="text" class="form-control" id="MaNV" th:field="*{MaNV}">
+        </div>
+        <div class="mb-3">
+            <label for="TenNv" class="form-label">Ten NV</label>
+            <input type="text" class="form-control" id="TenNv" th:field="*{TenNv}">
+        </div>
+        <div class="mb-3">
+            <label for="Phai" class="form-label">Phai</label>
+            <input type="text" class="form-control" id="Phai" th:field="*{Phai}">
+        </div>
+        <div class="mb-3">
+            <label for="NoiSinh" class="form-label">NoiSinh</label>
+            <input type="text" class="form-control" id="NoiSinh" th:field="*{NoiSinh}">
+        </div>
+        <div class="mb-3">
+            <label for="MaPhong" class="form-label">Ten Phong</label>
+            <select class="form-control" id="MaPhong" th:field="*{MaPhong}">
+                <option th:each="PhongBan:${phongBans}"
+                        th:text="${PhongBan.TenPhong}" th:value="${PhongBan.MaPhong}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="Luong" class="form-label">Luong</label>
+            <input type="number" class="form-control" id="Luong" th:field="*{Luong}">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{/NhanVien}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

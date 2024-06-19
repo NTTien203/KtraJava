@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mx-auto p-4">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-blue-700 text-xl font-bold">THÔNG TIN NHÂN VIÊN</h2>
+
+        <a th:href="@{/NhanVien/add}" class="bg-green-500 text-white px-4 py-2 rounded">Add New Course</a>
+    </div>
+    <table class="min-w-full border border-zinc-300">
+        <thead>
+        <tr  class="bg-zinc-100">
+            <th class="border border-zinc-300 p-2 text-red-500">Mã Nhân Viên</th>
+            <th class="border border-zinc-300 p-2 text-red-500">Tên Nhân Viên</th>
+            <th class="border border-zinc-300 p-2 text-red-500">Giới tính</th>
+            <th class="border border-zinc-300 p-2 text-red-500">Nơi Sinh</th>
+            <th class="border border-zinc-300 p-2 text-red-500">Tên Phòng</th>
+            <th class="border border-zinc-300 p-2 text-red-500">Lương</th>
+            <th class="border border-zinc-300 p-2 text-red-500">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="NhanVien: ${NhanViens}" class="bg-white">
+            <td th:text="${NhanVien.MaNV}" class="border border-zinc-300 p-2"></td>
+            <td th:text="${NhanVien.TenNv}"class="border border-zinc-300 p-2"></td>
+            <td th:text="${NhanVien.Phai}" class="border border-zinc-300 p-2"><img src="https://placehold.co/20x20" alt="female" /></td>
+            <td th:text="${NhanVien.NoiSinh}" class="border border-zinc-300 p-2"></td>
+            <td th:text="${NhanVien.MaPhong.TenPhong}" class="border border-zinc-300 p-2"></td>
+            <td th:text="${NhanVien.Luong}" class="border border-zinc-300 p-2"></td>
+            <td>
+<!--                <a th:href="@{/NhanVien/edit/{id}(id=${NhanVien.MaNV})" class="btn btn-primary">Edit</a>-->
+                <a th:href="@{/NhanVien/edit/{id}(id=${NhanVien.MaNV})}" class="btn btn-danger btn-sm">Edit</a>
+                <a th:href="@{/NhanVien/delete/{id}(id=${NhanVien.MaNV})}" class="btn btn-danger btn-sm">delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
